@@ -1,0 +1,19 @@
+astar_navigation:
+  ros__parameters:
+    # Planner parameters
+    allow_diagonal: true
+    heuristic_weight: 1.0
+    obstacle_cost_threshold: 90
+    inflation_radius: 0.3
+
+    # Controller parameters
+    max_linear_velocity: 0.5
+    max_angular_velocity: 1.0
+    lookahead_distance: 0.5
+    goal_position_tolerance: 0.1
+    goal_orientation_tolerance: 0.1
+
+    # General parameters
+    control_frequency: 10.0
+    robot_base_frame: "base_link"
+    global_frame: "map"
