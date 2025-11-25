@@ -1,0 +1,7 @@
+[console_scripts]
+pose_estimation2_node = ros2_opencv.poseEstimation2:main
+pose_estimation_node = ros2_opencv.poseEstimationSubscriber:main
+pose_simple_node = ros2_opencv.poseEstimationSimple:main
+pose_yolo_node = ros2_opencv.poseEstimationYOLO:main
+publisher_node = ros2_opencv.cameraPublisher:main
+subscriber_node = ros2_opencv.subscriberImage:main

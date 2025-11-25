@@ -1,0 +1,5 @@
+  File "/home/minh/ws_ros2_camera/src/ros2_opencv/install/ros2_opencv/lib/python3.12/site-packages/ros2_opencv/subscriberImage.py", line 1
+    gedit import cv2
+          ^^^^^^
+SyntaxError: invalid syntax
+

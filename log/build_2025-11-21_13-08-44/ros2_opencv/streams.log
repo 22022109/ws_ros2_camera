@@ -1,0 +1,34 @@
+[0.747s] Invoking command in '/home/minh/ws_ros2_camera/src/ros2_opencv': CONDA_PROMPT_MODIFIER=(base) DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/minh/ws_ros2_camera/build/ros2_opencv/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/minh/ws_ros2_camera/install/ros2_opencv/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/ros2_opencv build --build-base /home/minh/ws_ros2_camera/build/ros2_opencv/build install --record /home/minh/ws_ros2_camera/build/ros2_opencv/install.log --single-version-externally-managed install_data
+[0.942s] running egg_info
+[0.957s] writing ../../build/ros2_opencv/ros2_opencv.egg-info/PKG-INFO
+[0.971s] writing dependency_links to ../../build/ros2_opencv/ros2_opencv.egg-info/dependency_links.txt
+[0.971s] writing entry points to ../../build/ros2_opencv/ros2_opencv.egg-info/entry_points.txt
+[0.971s] writing requirements to ../../build/ros2_opencv/ros2_opencv.egg-info/requires.txt
+[0.971s] writing top-level names to ../../build/ros2_opencv/ros2_opencv.egg-info/top_level.txt
+[1.000s] reading manifest file '../../build/ros2_opencv/ros2_opencv.egg-info/SOURCES.txt'
+[1.001s] writing manifest file '../../build/ros2_opencv/ros2_opencv.egg-info/SOURCES.txt'
+[1.001s] running build
+[1.001s] running build_py
+[1.002s] copying ros2_opencv/poseEstimationSimple.py -> /home/minh/ws_ros2_camera/build/ros2_opencv/build/lib/ros2_opencv
+[1.002s] copying ros2_opencv/poseEstimationSubscriber.py -> /home/minh/ws_ros2_camera/build/ros2_opencv/build/lib/ros2_opencv
+[1.002s] copying ros2_opencv/poseEstimationYOLO.py -> /home/minh/ws_ros2_camera/build/ros2_opencv/build/lib/ros2_opencv
+[1.003s] running install
+[1.008s] running install_lib
+[1.022s] copying /home/minh/ws_ros2_camera/build/ros2_opencv/build/lib/ros2_opencv/poseEstimationSimple.py -> /home/minh/ws_ros2_camera/install/ros2_opencv/lib/python3.12/site-packages/ros2_opencv
+[1.022s] copying /home/minh/ws_ros2_camera/build/ros2_opencv/build/lib/ros2_opencv/poseEstimationSubscriber.py -> /home/minh/ws_ros2_camera/install/ros2_opencv/lib/python3.12/site-packages/ros2_opencv
+[1.022s] copying /home/minh/ws_ros2_camera/build/ros2_opencv/build/lib/ros2_opencv/poseEstimationYOLO.py -> /home/minh/ws_ros2_camera/install/ros2_opencv/lib/python3.12/site-packages/ros2_opencv
+[1.023s] byte-compiling /home/minh/ws_ros2_camera/install/ros2_opencv/lib/python3.12/site-packages/ros2_opencv/poseEstimationSimple.py to poseEstimationSimple.cpython-312.pyc
+[1.026s] byte-compiling /home/minh/ws_ros2_camera/install/ros2_opencv/lib/python3.12/site-packages/ros2_opencv/poseEstimationSubscriber.py to poseEstimationSubscriber.cpython-312.pyc
+[1.028s] byte-compiling /home/minh/ws_ros2_camera/install/ros2_opencv/lib/python3.12/site-packages/ros2_opencv/poseEstimationYOLO.py to poseEstimationYOLO.cpython-312.pyc
+[1.030s] running install_data
+[1.030s] running install_egg_info
+[1.046s] removing '/home/minh/ws_ros2_camera/install/ros2_opencv/lib/python3.12/site-packages/ros2_opencv-0.0.0-py3.12.egg-info' (and everything under it)
+[1.046s] Copying ../../build/ros2_opencv/ros2_opencv.egg-info to /home/minh/ws_ros2_camera/install/ros2_opencv/lib/python3.12/site-packages/ros2_opencv-0.0.0-py3.12.egg-info
+[1.047s] running install_scripts
+[1.140s] Installing pose_estimation_node script to /home/minh/ws_ros2_camera/install/ros2_opencv/lib/ros2_opencv
+[1.140s] Installing pose_simple_node script to /home/minh/ws_ros2_camera/install/ros2_opencv/lib/ros2_opencv
+[1.140s] Installing pose_yolo_node script to /home/minh/ws_ros2_camera/install/ros2_opencv/lib/ros2_opencv
+[1.140s] Installing publisher_node script to /home/minh/ws_ros2_camera/install/ros2_opencv/lib/ros2_opencv
+[1.140s] Installing subscriber_node script to /home/minh/ws_ros2_camera/install/ros2_opencv/lib/ros2_opencv
+[1.140s] writing list of installed files to '/home/minh/ws_ros2_camera/build/ros2_opencv/install.log'
+[1.161s] Invoked command in '/home/minh/ws_ros2_camera/src/ros2_opencv' returned '0': CONDA_PROMPT_MODIFIER=(base) DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/minh/ws_ros2_camera/build/ros2_opencv/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/minh/ws_ros2_camera/install/ros2_opencv/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/ros2_opencv build --build-base /home/minh/ws_ros2_camera/build/ros2_opencv/build install --record /home/minh/ws_ros2_camera/build/ros2_opencv/install.log --single-version-externally-managed install_data

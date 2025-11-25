@@ -1,0 +1,39 @@
+running egg_info
+creating build/ros2_opencv/ros2_opencv.egg-info
+writing build/ros2_opencv/ros2_opencv.egg-info/PKG-INFO
+writing dependency_links to build/ros2_opencv/ros2_opencv.egg-info/dependency_links.txt
+writing entry points to build/ros2_opencv/ros2_opencv.egg-info/entry_points.txt
+writing requirements to build/ros2_opencv/ros2_opencv.egg-info/requires.txt
+writing top-level names to build/ros2_opencv/ros2_opencv.egg-info/top_level.txt
+writing manifest file 'build/ros2_opencv/ros2_opencv.egg-info/SOURCES.txt'
+reading manifest file 'build/ros2_opencv/ros2_opencv.egg-info/SOURCES.txt'
+writing manifest file 'build/ros2_opencv/ros2_opencv.egg-info/SOURCES.txt'
+running build
+running build_py
+creating /home/minh/ws_ros2_camera/src/ros2_opencv/build/ros2_opencv/build
+creating /home/minh/ws_ros2_camera/src/ros2_opencv/build/ros2_opencv/build/lib
+creating /home/minh/ws_ros2_camera/src/ros2_opencv/build/ros2_opencv/build/lib/ros2_opencv
+copying ros2_opencv/subscriberImage.py -> /home/minh/ws_ros2_camera/src/ros2_opencv/build/ros2_opencv/build/lib/ros2_opencv
+copying ros2_opencv/__init__.py -> /home/minh/ws_ros2_camera/src/ros2_opencv/build/ros2_opencv/build/lib/ros2_opencv
+copying ros2_opencv/cameraPublisher.py -> /home/minh/ws_ros2_camera/src/ros2_opencv/build/ros2_opencv/build/lib/ros2_opencv
+running install
+running install_lib
+creating /home/minh/ws_ros2_camera/src/ros2_opencv/install/ros2_opencv/lib/python3.12/site-packages/ros2_opencv
+copying /home/minh/ws_ros2_camera/src/ros2_opencv/build/ros2_opencv/build/lib/ros2_opencv/subscriberImage.py -> /home/minh/ws_ros2_camera/src/ros2_opencv/install/ros2_opencv/lib/python3.12/site-packages/ros2_opencv
+copying /home/minh/ws_ros2_camera/src/ros2_opencv/build/ros2_opencv/build/lib/ros2_opencv/__init__.py -> /home/minh/ws_ros2_camera/src/ros2_opencv/install/ros2_opencv/lib/python3.12/site-packages/ros2_opencv
+copying /home/minh/ws_ros2_camera/src/ros2_opencv/build/ros2_opencv/build/lib/ros2_opencv/cameraPublisher.py -> /home/minh/ws_ros2_camera/src/ros2_opencv/install/ros2_opencv/lib/python3.12/site-packages/ros2_opencv
+byte-compiling /home/minh/ws_ros2_camera/src/ros2_opencv/install/ros2_opencv/lib/python3.12/site-packages/ros2_opencv/subscriberImage.py to subscriberImage.cpython-312.pyc
+byte-compiling /home/minh/ws_ros2_camera/src/ros2_opencv/install/ros2_opencv/lib/python3.12/site-packages/ros2_opencv/__init__.py to __init__.cpython-312.pyc
+byte-compiling /home/minh/ws_ros2_camera/src/ros2_opencv/install/ros2_opencv/lib/python3.12/site-packages/ros2_opencv/cameraPublisher.py to cameraPublisher.cpython-312.pyc
+running install_data
+creating /home/minh/ws_ros2_camera/src/ros2_opencv/install/ros2_opencv/share/ament_index
+creating /home/minh/ws_ros2_camera/src/ros2_opencv/install/ros2_opencv/share/ament_index/resource_index
+creating /home/minh/ws_ros2_camera/src/ros2_opencv/install/ros2_opencv/share/ament_index/resource_index/packages
+copying resource/ros2_opencv -> /home/minh/ws_ros2_camera/src/ros2_opencv/install/ros2_opencv/share/ament_index/resource_index/packages
+copying package.xml -> /home/minh/ws_ros2_camera/src/ros2_opencv/install/ros2_opencv/share/ros2_opencv
+running install_egg_info
+Copying build/ros2_opencv/ros2_opencv.egg-info to /home/minh/ws_ros2_camera/src/ros2_opencv/install/ros2_opencv/lib/python3.12/site-packages/ros2_opencv-0.0.0-py3.12.egg-info
+running install_scripts
+Installing publishe_node script to /home/minh/ws_ros2_camera/src/ros2_opencv/install/ros2_opencv/lib/ros2_opencv
+Installing subscriber_node script to /home/minh/ws_ros2_camera/src/ros2_opencv/install/ros2_opencv/lib/ros2_opencv
+writing list of installed files to '/home/minh/ws_ros2_camera/src/ros2_opencv/build/ros2_opencv/install.log'

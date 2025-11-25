@@ -1,0 +1,8 @@
+Metadata-Version: 2.1
+Name: ros2-opencv
+Version: 0.0.0
+Summary: TODO: Package description
+Maintainer: minh
+Maintainer-email: 22022109@vnu.edu.vn
+License: TODO: License declaration
+Provides-Extra: test
