@@ -1,10 +1,10 @@
 # ws_ros2_camera
 Direction + skeleton arrays:
-  [person_id, x0, y0, x1, y1, ..., x16, y16, vx, vy, direction_code, confidence, timestamp] 
-  person_id: Unique ID to track same person
-  17 keypoints: All skeleton joints (x, y)
-  velocity: vx, vy in pixels/frame
-  direction_code: 0-7 (Up, Up-Right, Right, ...)
+  \n[person_id, x0, y0, x1, y1, ..., x16, y16, vx, vy, direction_code, confidence, timestamp] 
+  \nperson_id: Unique ID to track same person
+  \n17 keypoints: All skeleton joints (x, y)
+  \nvelocity: vx, vy in pixels/frame
+  \ndirection_code: 0-7 (Up, Up-Right, Right, ...)
   confidence: YOLO detection confidence 0-1
   timestamp: ROS2 time in seconds
 
