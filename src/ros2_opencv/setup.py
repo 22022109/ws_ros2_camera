@@ -30,6 +30,7 @@ setup(
             'pose_simple_node=ros2_opencv.poseEstimationSimple:main',
             'pose_yolo_node=ros2_opencv.poseEstimationYOLO:main',
             'pose_estimation2_node=ros2_opencv.poseEstimation2:main',
+            'pose_data_subscriber_node=ros2_opencv.poseDataSubscriber:main',
         ],
     },
 )

@@ -11,7 +11,7 @@ class PublisherNodeClass(Node):
     def __init__(self):
         super().__init__('publisher_node')
         
-        self.cameraDeviceNumber=4
+        self.cameraDeviceNumber=0
         self.camera = cv2.VideoCapture(self.cameraDeviceNumber)
         self.bridgeObject = CvBridge()
         self.topicNameFrames='topic_camera_image'

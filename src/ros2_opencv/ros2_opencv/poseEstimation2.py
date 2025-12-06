@@ -4,6 +4,7 @@ import numpy as np
 
 import rclpy
 from sensor_msgs.msg import Image
+from std_msgs.msg import Float32MultiArray
 from rclpy.node import Node
 from cv_bridge import CvBridge
 
@@ -13,6 +14,11 @@ class PoseEstimation2NodeClass(Node):
 	def __init__(self):
 		super().__init__('pose_estimation2_node')
 		
+		# ===== CONFIGURATION: Enable/Disable Features =====
+		self.enable_publish = True   # Set False to disable publishing pose data
+		self.enable_display = False   # Set False to disable CV2 windows
+		# =================================================
+		
 		self.bridgeObject = CvBridge()
 		
 		self.topicNameFrames = 'topic_camera_image'
@@ -21,6 +27,9 @@ class PoseEstimation2NodeClass(Node):
 		
 		self.subscription = self.create_subscription(Image, self.topicNameFrames, self.listener_callbackFunction, self.queueSize)
 		self.subscription
+		
+		# Publisher for pose data
+		self.pose_publisher = self.create_publisher(Float32MultiArray, 'topic_pose_data', self.queueSize)
 		
 		# Load YOLO model (YOLOv11-pose - latest version)
 		self.model = YOLO('yolo11n-pose.pt')
@@ -122,8 +131,31 @@ class PoseEstimation2NodeClass(Node):
 		
 		return predicted_pos, avg_vx, avg_vy, direction_label, color
 	
+	def get_direction_code(self, angle):
+		"""Convert movement angle to direction code (0-7)
+		0=Up, 1=Up-Right, 2=Right, 3=Down-Right, 4=Down, 5=Down-Left, 6=Left, 7=Up-Left
+		"""
+		angle = angle % 360
+		
+		if -22.5 <= angle < 22.5:
+			return 0  # Up
+		elif 22.5 <= angle < 67.5:
+			return 1  # Up-Right
+		elif 67.5 <= angle < 112.5:
+			return 2  # Right
+		elif 112.5 <= angle < 157.5:
+			return 3  # Down-Right
+		elif 157.5 <= angle < 180 or -180 <= angle < -157.5:
+			return 4  # Down
+		elif -157.5 <= angle < -112.5:
+			return 5  # Down-Left
+		elif -112.5 <= angle < -67.5:
+			return 6  # Left
+		else:
+			return 7  # Up-Left
+	
 	def get_movement_direction_label(self, angle, speed):
-		"""Convert movement angle to direction label"""
+		"""Convert movement angle to direction label for display"""
 		angle = angle % 360
 		
 		# Add speed indicator
@@ -146,78 +178,6 @@ class PoseEstimation2NodeClass(Node):
 		else:
 			return f"{speed_label} - Moving Up-Left", (255, 128, 0)
 	
-	def calculate_direction(self, keypoints):
-		"""
-		Calculate the direction a person is facing based on body keypoints
-		Returns: direction vector, angle, and body center
-		"""
-		# Get key points with confidence check
-		nose = keypoints[0] if len(keypoints) > 0 and keypoints[0][2] > 0.5 else None
-		left_shoulder = keypoints[5] if len(keypoints) > 5 and keypoints[5][2] > 0.5 else None
-		right_shoulder = keypoints[6] if len(keypoints) > 6 and keypoints[6][2] > 0.5 else None
-		left_hip = keypoints[11] if len(keypoints) > 11 and keypoints[11][2] > 0.5 else None
-		right_hip = keypoints[12] if len(keypoints) > 12 and keypoints[12][2] > 0.5 else None
-		
-		# Check if we have enough keypoints
-		if nose is None or left_shoulder is None or right_shoulder is None:
-			return None, None, None
-		
-		# Calculate body center
-		center_x = (left_shoulder[0] + right_shoulder[0]) / 2
-		center_y = (left_shoulder[1] + right_shoulder[1]) / 2
-		
-		if left_hip is not None and right_hip is not None:
-			hip_center_x = (left_hip[0] + right_hip[0]) / 2
-			hip_center_y = (left_hip[1] + right_hip[1]) / 2
-			center_x = (center_x + hip_center_x) / 2
-			center_y = (center_y + hip_center_y) / 2
-		
-		# Vector from body center to nose (facing direction)
-		direction_x = nose[0] - center_x
-		direction_y = nose[1] - center_y
-		
-		# Normalize the direction vector
-		magnitude = np.sqrt(direction_x**2 + direction_y**2)
-		if magnitude > 0:
-			direction_x /= magnitude
-			direction_y /= magnitude
-		else:
-			return None, None, None
-		
-		# Calculate angle (0 degrees is up/north, clockwise)
-		angle = np.degrees(np.arctan2(direction_x, -direction_y))
-		
-		# Create arrow points
-		arrow_length = 120
-		start_point = (int(center_x), int(center_y))
-		end_point = (int(center_x + direction_x * arrow_length), 
-					int(center_y + direction_y * arrow_length))
-		
-		return start_point, end_point, angle
-	
-	def get_direction_label(self, angle):
-		"""Convert angle to cardinal direction and predicted movement"""
-		if angle is None:
-			return "Unknown", (128, 128, 128)
-		
-		angle = angle % 360
-		if -22.5 <= angle < 22.5:
-			return "North (Moving Forward)", (0, 255, 0)
-		elif 22.5 <= angle < 67.5:
-			return "North-East (Forward-Right)", (0, 255, 128)
-		elif 67.5 <= angle < 112.5:
-			return "East (Moving Right)", (0, 255, 255)
-		elif 112.5 <= angle < 157.5:
-			return "South-East (Back-Right)", (0, 128, 255)
-		elif 157.5 <= angle < 180 or -180 <= angle < -157.5:
-			return "South (Moving Backward)", (0, 0, 255)
-		elif -157.5 <= angle < -112.5:
-			return "South-West (Back-Left)", (128, 0, 255)
-		elif -112.5 <= angle < -67.5:
-			return "West (Moving Left)", (255, 0, 255)
-		else:
-			return "North-West (Forward-Left)", (255, 128, 0)
-		
 	def listener_callbackFunction(self, imageMessage):
 		self.get_logger().info('The image frame is received')
 		
@@ -236,9 +196,19 @@ class PoseEstimation2NodeClass(Node):
 		# Track person index for text positioning
 		person_index = 0
 		
+		# Prepare pose data list for publishing (all detected people)
+		all_pose_data = []
+		
+		# Get current timestamp
+		current_time = self.get_clock().now().to_msg()
+		timestamp = current_time.sec + current_time.nanosec * 1e-9
+		
 		# Process keypoints
-		for keypoints in results[0].keypoints.data:
+		for idx, keypoints in enumerate(results[0].keypoints.data):
 			keypoints = keypoints.cpu().numpy() 
+			
+			# Get detection confidence from YOLO
+			detection_confidence = float(results[0].boxes.conf[idx]) if len(results[0].boxes.conf) > idx else 0.0
 			
 			# Draw keypoints with labels
 			for i, keypoint in enumerate(keypoints):
@@ -262,6 +232,28 @@ class PoseEstimation2NodeClass(Node):
 			if body_center is not None:
 				# Predict movement based on position history
 				predicted_pos, vx, vy, movement_label, color = self.predict_movement(person_index, body_center)
+				
+				# Calculate movement angle and direction code
+				movement_angle = np.degrees(np.arctan2(vy, vx))
+				direction_code = self.get_direction_code(movement_angle)
+				
+				# Prepare data for this person: [person_id, 17 keypoints (x,y), vx, vy, direction, confidence, timestamp]
+				person_data = [float(person_index)]  # person_id
+				
+				# Add 17 keypoints (x, y only)
+				for keypoint in keypoints:
+					person_data.append(float(keypoint[0]))  # x
+					person_data.append(float(keypoint[1]))  # y
+				
+				# Add movement data
+				person_data.append(float(vx))  # velocity x
+				person_data.append(float(vy))  # velocity y
+				person_data.append(float(direction_code))  # direction code (0-7)
+				person_data.append(float(detection_confidence))  # YOLO confidence
+				person_data.append(float(timestamp))  # timestamp
+				
+				# Add to list
+				all_pose_data.extend(person_data)
 				
 				# Draw current position
 				cv2.circle(frame, body_center, 8, (0, 255, 0), -1)
@@ -303,10 +295,18 @@ class PoseEstimation2NodeClass(Node):
 			
 			person_index += 1
 		
-		# Display windows
-		cv2.imshow('YOLO Detection', frame)
-		cv2.imshow('Skeleton', blank_image)
-		cv2.waitKey(1)
+		# Publish pose data (if enabled)
+		if self.enable_publish and all_pose_data:
+			pose_msg = Float32MultiArray()
+			pose_msg.data = all_pose_data
+			self.pose_publisher.publish(pose_msg)
+			self.get_logger().info(f'Published pose data for {person_index} person(s)')
+		
+		# Display windows (if enabled)
+		if self.enable_display:
+			cv2.imshow('YOLO Detection', frame)
+			cv2.imshow('Skeleton', blank_image)
+			cv2.waitKey(1)
 			
 def main(args=None):
 	rclpy.init(args=args)
